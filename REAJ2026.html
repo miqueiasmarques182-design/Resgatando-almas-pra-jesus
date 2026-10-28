@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceitar a Jesus - REAJ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        /* Animação para as nuvens celestiais passarem suavemente pelo fundo */
+        @keyframes flyCloud {
+            0% { transform: translateX(-20vw) scale(0.8); opacity: 0; }
+            15% { opacity: 0.75; }
+            85% { opacity: 0.75; }
+            100% { transform: translateX(120vw) scale(1.1); opacity: 0; }
+        }
+        @keyframes riseFire {
+            0% { transform: translateY(10vh) scale(0.6); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-80vh) scale(1.2); opacity: 0; }
+        }
+        @keyframes riseLightSlow {
+            0% { transform: translateY(15vh) scale(0.7) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.85; }
+            80% { opacity: 0.85; }
+            100% { transform: translateY(-85vh) scale(1.2) rotate(10deg); opacity: 0; }
+        }
+        @keyframes helmetPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(-5deg); }
+        }
+        /* Fundo Padrão (Céu de Paz) */
+        .sky-bg {
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #7db9e8 100%);
+            transition: background 0.8s ease-in-out;
+        }
+        /* Fundo de Alerta / Fogo (Porta Larga) */
+        .fogo-bg {
+            background: linear-gradient(180deg, #1a0505 0%, #4a0e0e 50%, #8b0000 100%);
+            transition: background 0.8s ease-in-out;
+        }
+        /* Fundo Celestial: Azul Suave, Branco e Dourado (Porta Estreita) */
+        .luz-bg {
+            background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 40%, #fef3c7 100%);
+            transition: background 0.8s ease-in-out;
+        }
+        .cloud-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            animation: flyCloud 20s linear infinite;
+            pointer-events: none;
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.15));
+        }
+        .fire-effect {
+            position: absolute;
+            color: rgba(255, 100, 0, 0.7);
+            animation: riseFire 6s linear infinite;
+            pointer-events: none;
+            filter: drop-shadow(0px 0px 8px rgba(255, 69, 0, 0.8));
+        }
+        .light-effect {
+            position: absolute;
+            color: #ca8a04;
+            animation: riseLightSlow 12s linear infinite;
+            pointer-events: none;
+            filter: drop-shadow(0px 0px 12px rgba(250, 204, 21, 0.9));
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-helmet { animation: helmetPulse 2.5s ease-in-out infinite; display: inline-block; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body id="corpo-pagina" class="sky-bg min-h-screen relative overflow-x-hidden font-sans text-gray-800 flex flex-col justify-between">
+
+    <!-- Elementos de Fundo Dinâmicos (Nuvens Passando Apenas no Fundo) -->
+    <div id="container-animacao-fundo">
+        <div class="cloud-bg text-4xl" style="top: 10%; animation-delay: 0s;"><i class="fa-solid fa-cloud"></i></div>
+        <div class="cloud-bg text-2xl" style="top: 25%; animation-delay: 5s;"><i class="fa-solid fa-cloud"></i></div>
+        <div class="cloud-bg text-5xl" style="top: 45%; animation-delay: 2s;"><i class="fa-solid fa-cloud"></i></div>
+        <div class="cloud-bg text-3xl" style="top: 60%; animation-delay: 9s;"><i class="fa-solid fa-cloud"></i></div>
+        <div class="cloud-bg text-4xl" style="top: 75%; animation-delay: 4s;"><i class="fa-solid fa-cloud"></i></div>
+        <div class="cloud-bg text-2xl" style="top: 90%; animation-delay: 12s;"><i class="fa-solid fa-cloud"></i></div>
+    </div>
+
+    <!-- Cabeçalho Limpo (Apenas Capacete e Texto) -->
+    <header class="w-full p-4 flex justify-between items-center z-10">
+        <div class="flex items-center space-x-2 text-white font-bold text-lg drop-shadow">
+            <div class="w-10 h-10 animate-helmet flex items-center justify-center filter drop-shadow-md">
+                <img src="logo4.png" alt="Capacete de Soldado" class="w-full h-full object-contain">
+            </div>
+            <span>Em Defesa do Evangelho</span>
+        </div>
+        <!-- Escudo Clicável para abrir os ministérios da REAJ -->
+        <div class="flex flex-col items-center cursor-pointer group" onclick="abrirMenuEscudo()" title="Toque para ver os Ministérios e Obras da REAJ">
+            <img src="logo.png" alt="Logo REAJ" class="w-16 h-20 object-contain rounded-xl shadow-2xl border-2 border-yellow-300 animate-float bg-black/40 group-hover:scale-110 transition duration-300">
+            <span class="text-[9px] text-yellow-200 font-bold mt-1 bg-black/50 px-2 py-0.5 rounded-full shadow">Toque no escudo</span>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-6 flex-grow flex items-center justify-center z-10 max-w-lg">
+        
+        <!-- 1. PERGUNTA INICIAL COM AS DUAS PORTAS -->
+        <div id="card-pergunta" class="glass-card w-full rounded-2xl p-6 shadow-2xl text-center border border-white/50">
+            <!-- BIBLIA.PNG BEM GRANDE (DOBRADO) E ESTÁTICA EM CIMA DA PERGUNTA -->
+            <div class="w-64 h-64 mx-auto mb-3 flex items-center justify-center filter drop-shadow-lg">
+                <img src="biblia.png" alt="Bíblia Sagrada" class="w-full h-full object-contain">
+            </div>
+            <h1 class="text-2xl font-black text-gray-800 mb-1">Qual Porta Você Escolhe Hoje?</h1>
+            <p class="text-gray-600 text-xs mb-4">"Entrai pela porta estreita..." (Mateus 7:13)</p>
+            
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <!-- PORTA ESTREITA (SIM) - Aumentada -->
+                <button onclick="responder('sim')" class="flex flex-col items-center justify-between p-3 bg-gradient-to-b from-emerald-50 to-emerald-100 border-2 border-emerald-500 rounded-2xl shadow-lg hover:shadow-xl transform active:scale-95 transition group">
+                    <div class="w-28 h-36 flex items-center justify-center mb-2">
+                        <img src="logo1.png" alt="Porta Estreita - Céu" class="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-105 transition">
+                    </div>
+                    <span class="text-xs font-black text-emerald-800 uppercase tracking-wide">Porta Estreita</span>
+                    <span class="text-[10px] text-emerald-600 font-semibold mb-2">(Caminho da Vida)</span>
+                    <span class="w-full py-2 bg-emerald-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow leading-tight px-1">
+                        <i class="fa-solid fa-check"></i> QUERO ACEITAR JESUS
+                    </span>
+                </button>
+
+                <!-- PORTA LARGA (NÃO) - Aumentada -->
+                <button onclick="responder('nao')" class="flex flex-col items-center justify-between p-3 bg-gradient-to-b from-rose-50 to-rose-100 border-2 border-rose-500 rounded-2xl shadow-lg hover:shadow-xl transform active:scale-95 transition group">
+                    <div class="w-28 h-36 flex items-center justify-center mb-2">
+                        <img src="logo2.png" alt="Porta Larga - Perdição" class="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-105 transition">
+                    </div>
+                    <span class="text-xs font-black text-rose-800 uppercase tracking-wide">Porta Larga</span>
+                    <span class="text-[10px] text-rose-600 font-semibold mb-2">(Caminho Espaçoso)</span>
+                    <span class="w-full py-2 bg-rose-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow leading-tight px-1">
+                        <i class="fa-solid fa-xmark"></i> NÃO QUERO ACEITAR JESUS
+                    </span>
+                </button>
+            </div>
+
+            <button onclick="irParaOracao()" class="w-full py-2.5 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-hands-praying"></i> Ir para o Mural de Oração
+            </button>
+        </div>
+
+        <!-- 2. CAMINHO DA PORTA LARGA (NÃO / PERDIÇÃO) -->
+        <div id="card-nao" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-red-200">
+            <div class="w-24 h-32 mx-auto mb-3 flex items-center justify-center">
+                <img src="logo2.png" alt="Porta Larga" class="max-h-full object-contain filter drop-shadow">
+            </div>
+            <h2 class="text-xl font-bold text-red-600 text-center mb-1">A Rota da Porta Larga</h2>
+            <p class="text-center text-xs text-red-500 font-semibold mb-4">"Larga é a porta, e espaçoso o caminho que conduz à perdição"</p>
+            
+            <div class="text-gray-700 text-xs space-y-3 leading-relaxed bg-red-50/70 p-4 rounded-xl border border-red-100">
+                <p class="font-semibold text-red-800">O inimigo usa ilusões modernas para cegar e aprisionar as almas:</p>
+                <ul class="list-disc pl-4 space-y-1.5 font-medium text-red-900">
+                    <li>Apostas digitais (*bets*) e ilusão do dinheiro fácil;</li>
+                    <li>Pornografia e escravidão da mente na imoralidade;</li>
+                    <li>Vício em redes sociais, futilidades e ilusão digital;</li>
+                    <li>Bebedearia, baladas, drogas e vida sem temor a Deus.</li>
+                </ul>
+                <p class="font-bold text-red-700 text-center pt-1">O fim deste caminho é o Hades — a separação eterna de Deus.</p>
+            </div>
+            
+            <div class="flex flex-col gap-2.5 mt-5">
+                <button onclick="responder('sim')" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-person-walking-arrow-loop-left"></i> Mudar de Ideia e Escolher a Porta Estreita!
+                </button>
+                <button onclick="reiniciar()" class="w-full py-2.5 bg-gray-800 text-white font-semibold rounded-xl shadow hover:bg-gray-900 transition text-sm">
+                    Voltar ao Início
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. CAMINHO DA PORTA ESTREITA (SIM / SALVAÇÃO) -->
+        <div id="card-sim" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-emerald-200">
+            <div class="w-24 h-32 mx-auto mb-3 flex items-center justify-center">
+                <img src="logo1.png" alt="Porta Estreita" class="max-h-full object-contain filter drop-shadow">
+            </div>
+            <h2 class="text-2xl font-extrabold text-emerald-700 text-center mb-1">A Rota da Porta Estreita!</h2>
+            <p class="text-center text-xs font-bold text-emerald-600 mb-4 uppercase tracking-wider">A Escolha da Vida Eterna com Cristo</p>
+
+            <div class="text-gray-700 text-sm space-y-3 leading-relaxed bg-emerald-50/60 p-4 rounded-xl border border-emerald-100 mb-5">
+                <p>Você escolheu a porta que conduz à **salvação**! Jesus deu a Sua vida na cruz e ressuscitou para nos libertar de todas as armadilhas do pecado.</p>
+                <p class="font-semibold text-emerald-800">"Eu sou o caminho, e a verdade e a vida; ninguém vem ao Pai, senão por mim." (João 14:6)</p>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="mostrarQuemEJesus()" class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-book-bible"></i> Quem é Jesus e por que aceitá-lo?
+                </button>
+                <button onclick="irParaOracao()" class="w-full py-2.5 px-4 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-hands-praying"></i> Deixar Pedido no Mural de Oração
+                </button>
+            </div>
+        </div>
+
+        <!-- 3.1. TELA: QUEM É JESUS E POR QUE ACEITÁ-LO -->
+        <div id="card-quem-e-jesus" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-indigo-200">
+            <div class="w-14 h-14 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            <h2 class="text-xl font-black text-indigo-900 text-center mb-1">Quem é Jesus e Por Que Aceitá-Lo?</h2>
+            <p class="text-center text-xs text-gray-500 mb-4">O sacrifício perfeito e o verdadeiro exemplo</p>
+
+            <div class="text-gray-700 text-xs space-y-3 leading-relaxed bg-indigo-50/70 p-4 rounded-xl border border-indigo-100 max-h-[45vh] overflow-y-auto mb-4">
+                <p>Jesus foi o <strong>único sacrifício puro</strong>. Sendo o próprio Filho de Deus, veio em forma humana, sujeito a dores e provações, mas viveu sem pecado.</p>
+                <p>Ele nos deu o exemplo supremo de que, com <strong>fé e amor</strong>, é possível vencer o mal. Aceitá-Lo significa abandonar as obras das trevas — como baladas, drogas, álcool, pornografia, *bets*, redes sociais fúteis e companhias maliciosas — para viver em santidade.</p>
+                <p class="font-semibold text-indigo-900 italic">"Deus prova o seu amor para conosco, em que Cristo morreu por nós..." (Romanos 5:8).</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <button onclick="mostrarCaminhada()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-shoe-prints"></i> Como Caminhar com Jesus Agora
+                </button>
+                <button onclick="reiniciar()" class="w-full py-2.5 bg-gray-800 text-white font-semibold rounded-xl shadow hover:bg-gray-900 transition text-sm">
+                    Voltar ao Início
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. GUIA DE CAMINHADA COM CRISTO -->
+        <div id="card-caminhada" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-blue-200 my-4">
+            <h2 class="text-xl font-black text-blue-900 text-center mb-1">Como Caminhar com Cristo</h2>
+            <p class="text-center text-xs text-gray-500 mb-4">Orientação bíblica para a vida cristã diária</p>
+
+            <div class="space-y-3 text-xs leading-relaxed max-h-[45vh] overflow-y-auto pr-1 mb-4">
+                <div class="bg-blue-50/80 p-3 rounded-xl border border-blue-100">
+                    <h3 class="font-bold text-blue-800 text-sm mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-scroll"></i> 1. Guardar os Mandamentos
+                    </h3>
+                    <p class="text-gray-700">Amar a Deus sobre todas as coisas e ao próximo como a si mesmo. Afastar-se do mal e viver em retidão.</p>
+                </div>
+                <div class="bg-rose-50/80 p-3 rounded-xl border border-rose-100">
+                    <h3 class="font-bold text-rose-800 text-sm mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-ban"></i> 2. Renunciar o Pecado
+                    </h3>
+                    <p class="text-gray-700">A Bíblia proíbe as práticas da carne: feitiçaria, imoralidade, bebedeiras e idolatria (Gálatas 5:19-21).</p>
+                </div>
+                <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-800 text-sm mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-shield-halved"></i> 3. A Luta Diária (Carne vs Espírito)
+                    </h3>
+                    <p class="text-gray-700">Seja menino na malícia, mas adulto no entendimento para discernir o bem e o mal (1 Coríntios 14:20).</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <button onclick="irParaOracao()" class="w-full py-2.5 bg-amber-600 text-white font-bold rounded-xl shadow hover:bg-amber-700 transition text-sm">
+                    Ir para o Mural de Oração
+                </button>
+                <button onclick="reiniciar()" class="w-full py-2.5 bg-gray-800 text-white font-semibold rounded-xl shadow hover:bg-gray-900 transition text-sm">
+                    Voltar ao Início
+                </button>
+            </div>
+        </div>
+
+        <!-- 5. TELA: MURAL DE ORAÇÃO -->
+        <div id="card-oracao" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-amber-200">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                <i class="fa-solid fa-hands-praying"></i>
+            </div>
+            <h2 class="text-xl font-black text-amber-900 text-center mb-1">Mural de Oração REAJ</h2>
+            <p class="text-center text-xs text-gray-600 mb-4">Escreva seu nome e pedido para a igreja interceder.</p>
+
+            <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-100 mb-4 space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Seu Nome / Sobrenome:</label>
+                    <input type="text" id="input-nome" placeholder="Ex: Irmão Carlos" class="w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Seu Pedido de Oração:</label>
+                    <textarea id="input-pedido" rows="2" placeholder="Ex: Peço oração pela minha família e saúde..." class="w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                </div>
+                <button onclick="adicionarPedido()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg shadow transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Publicar no Mural
+                </button>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Pedidos Atuais da Igreja:</h3>
+                <div id="lista-pedidos" class="space-y-2.5 max-h-[30vh] overflow-y-auto pr-1">
+                </div>
+            </div>
+
+            <button onclick="reiniciar()" class="w-full py-2.5 bg-gray-800 text-white font-bold rounded-xl shadow hover:bg-gray-900 transition text-sm">
+                Voltar ao Início
+            </button>
+        </div>
+
+        <!-- 6. MENU SECRETO DO ESCUDO (MINISTÉRIOS E OBRAS DA REAJ) -->
+        <div id="card-menu-escudo" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-yellow-300">
+            <!-- LOGO3.PNG NO TOPO DO MENU -->
+            <div class="w-16 h-16 mx-auto mb-3 flex items-center justify-center rounded-2xl shadow-inner border-2 border-yellow-300 bg-black/20 overflow-hidden">
+                <img src="logo3.png" alt="Logo REAJ" class="w-full h-full object-contain filter drop-shadow">
+            </div>
+            <h2 class="text-xl font-black text-gray-900 text-center mb-1">Missão e Obras da REAJ</h2>
+            <p class="text-center text-xs text-gray-600 mb-4">Conheça nossos trabalhos e caminhos na terra</p>
+
+            <div class="space-y-2.5 mb-5">
+                <!-- BOTÃO DO PASTOR E MISSIONÁRIA COM LOGO5.PNG RETANGULAR COMPLETA -->
+                <button onclick="abrirSubPagina('lideranca')" class="w-full py-3 px-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-black rounded-xl shadow-lg transition text-xs flex items-center justify-between border border-yellow-300">
+                    <div class="flex items-center gap-2.5">
+                        <img src="logo5.png" alt="Pastor Flávio e Missionária Gisele" class="w-14 h-9 rounded-lg object-contain bg-black/30 border border-white/80 shadow">
+                        <span class="text-sm text-left leading-tight">Pastor Presidente Flávio REAJ e Missionária Gisele</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-white"></i>
+                </button>
+
+                <!-- BOTÃO DE GUERRA ESPIRITUAL -->
+                <button onclick="abrirGuerraEspiritual()" class="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-700 hover:to-rose-800 text-white font-black rounded-xl shadow-lg transition text-xs flex items-center justify-between border border-red-400">
+                    <span class="flex items-center gap-2 text-sm"><i class="fa-solid fa-skull-crossbones text-yellow-300"></i> Guerra Face a Face com Espíritos Malignos</span>
+                    <i class="fa-solid fa-chevron-right text-yellow-300"></i>
+                </button>
+
+                <button onclick="abrirSubPagina('endereco')" class="w-full py-3 px-4 bg-white hover:bg-yellow-50 text-gray-800 font-bold rounded-xl shadow border border-gray-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-red-600 text-base"></i> Endereço da Nossa Igreja</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+                <button onclick="abrirSubPagina('social')" class="w-full py-3 px-4 bg-white hover:bg-yellow-50 text-gray-800 font-bold rounded-xl shadow border border-gray-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-handshake text-emerald-600 text-base"></i> Trabalhos Sociais</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+                <button onclick="abrirSubPagina('presidio')" class="w-full py-3 px-4 bg-white hover:bg-yellow-50 text-gray-800 font-bold rounded-xl shadow border border-gray-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-key text-amber-600 text-base"></i> Visita em Presídios</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+                <button onclick="abrirSubPagina('libertacao')" class="w-full py-3 px-4 bg-white hover:bg-yellow-50 text-gray-800 font-bold rounded-xl shadow border border-gray-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-fire text-orange-600 text-base"></i> Curas e Libertação</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+
+            <button onclick="reiniciar()" class="w-full py-2.5 bg-gray-800 text-white font-bold rounded-xl shadow hover:bg-gray-900 transition text-sm">
+                Voltar ao Início
+            </button>
+        </div>
+
+        <!-- 6.1. TELA DE GUERRA ESPIRITUAL (OUTDOOR ORIGINAL NO TOPO + SUB-BOTÕES) -->
+        <div id="card-guerra-espiritual" class="hidden glass-card w-full rounded-2xl p-5 shadow-2xl border border-red-300">
+            <h2 class="text-base font-black text-red-900 text-center mb-1">Guerra Face a Face com Espíritos Malignos</h2>
+            <p class="text-center text-[11px] text-gray-600 mb-2">Acompanhe o momento e escolha a libertação específica abaixo:</p>
+
+            <!-- OUTDOOR ORIGINAL COM PLAY AUTOMÁTICO -->
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg mb-3 bg-black border-2 border-red-500">
+                <iframe id="iframe-outdoor" class="absolute top-0 left-0 w-full h-full" src="" title="Outdoor Guerra Espiritual REAJ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <!-- SUB-BOTÕES DE LIBERTAÇÃO ESPECÍFICA -->
+            <div class="space-y-2 mb-4 max-h-[30vh] overflow-y-auto pr-1">
+                <button onclick="abrirVideoLibertacao('vicios')" class="w-full py-2.5 px-3 bg-white hover:bg-red-50 text-red-900 font-bold rounded-xl shadow border border-red-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-bolt text-red-600"></i> Libertação dos Vícios e Drogas</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+                <button onclick="abrirVideoLibertacao('depressao')" class="w-full py-2.5 px-3 bg-white hover:bg-red-50 text-red-900 font-bold rounded-xl shadow border border-red-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-cloud-rain text-red-600"></i> Cura da Depressão e Opressão</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+                <button onclick="abrirVideoLibertacao('correntes')" class="w-full py-2.5 px-3 bg-white hover:bg-red-50 text-red-900 font-bold rounded-xl shadow border border-red-200 transition text-xs flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-link-slash text-red-600"></i> Quebrando Maldições Hereditárias</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+
+            <button onclick="abrirMenuEscudo()" class="w-full py-2.5 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow transition text-sm mb-2">
+                Voltar aos Trabalhos da REAJ
+            </button>
+            <button onclick="reiniciar()" class="w-full py-2 bg-gray-800 text-white font-semibold rounded-xl shadow hover:bg-gray-900 transition text-xs">
+                Ir para o Início
+            </button>
+        </div>
+
+        <!-- 6.2. TELA DO REPRODUTOR DE VÍDEO ESPECÍFICO -->
+        <div id="card-player-video" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-red-400">
+            <h3 id="titulo-video" class="font-black text-gray-900 text-sm text-center mb-3">Momento de Libertação</h3>
+            
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg mb-4 bg-black">
+                <iframe id="iframe-youtube" class="absolute top-0 left-0 w-full h-full" src="" title="Vídeo de Libertação REAJ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <button onclick="abrirGuerraEspiritual()" class="w-full py-2.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-xl shadow transition text-sm mb-2 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao Menu de Guerra
+            </button>
+            <button onclick="reiniciar()" class="w-full py-2 bg-gray-800 text-white font-semibold rounded-xl shadow hover:bg-gray-900 transition text-xs">
+                Ir para o Início
+            </button>
+        </div>
+
+        <!-- 7. SUBPÁGINAS DE CONTEÚDO DOS MINISTÉRIOS -->
+        <div id="card-subpagina" class="hidden glass-card w-full rounded-2xl p-6 shadow-2xl border border-blue-200">
+            <div id="conteudo-subpagina" class="text-gray-700 text-xs space-y-3 leading-relaxed mb-5">
+                <!-- Conteúdo injetado via JavaScript -->
+            </div>
+            <button onclick="abrirMenuEscudo()" class="w-full py-2.5 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow transition text-sm mb-2">
+                Voltar aos Trabalhos da REAJ
+            </button>
+            <button onclick="reiniciar()" class="w-full py-2 bg-gray-800 text-white font-semibold rounded-xl shadow hover:bg-gray-900 transition text-xs">
+                Ir para o Início
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Rodapé da REAJ com botão QR Code que copia o Pix -->
+    <footer class="w-full p-3 z-15 bg-black/30 backdrop-blur-sm flex justify-between items-end text-white/90 relative">
+        
+        <!-- Alerta flutuante de Pix copiado -->
+        <div id="toast-pix" class="absolute bottom-20 left-4 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none flex items-center gap-1.5 z-20">
+            <i class="fa-solid fa-circle-check"></i> Chave Pix copiada com sucesso!
+        </div>
+
+        <!-- QR Code Pix Clicável para Copiar -->
+        <div onclick="copiarPix()" class="flex flex-col items-center bg-white/10 hover:bg-white/20 p-2 rounded-xl border border-white/20 shadow-lg cursor-pointer transition transform active:scale-95 group" title="Toque para copiar a chave Pix">
+            <img src="qrcode.jpg" alt="QR Code Pix" class="w-20 h-20 object-contain rounded bg-white p-1 shadow group-hover:scale-105 transition">
+            <span class="text-[9px] font-bold text-yellow-300 mt-1 uppercase tracking-tight text-center flex items-center gap-1">
+                <i class="fa-solid fa-copy text-[8px]"></i> Dízimos e ofertas (Toque para Pix)
+            </span>
+        </div>
+        
+        <!-- Texto do Rodapé -->
+        <div class="text-right text-xs font-medium pb-2">
+            REAJ — A Serviço do Rei
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", carregarPedidos);
+
+        // FUNÇÃO PARA COPIAR A CHAVE PIX AUTOMATICAMENTE
+        function copiarPix() {
+            // Código Pix Copia e Cola extraído do seu QR Code
+            const chavePix = "00020126580014BR.GOV.BCB.PIX01362e6dff98-7cfd-4a11-825f-fcf20b8f36cb5204000053039865802BR5909REAJ6009SUMARE62070503***630419AE";
+
+            navigator.clipboard.writeText(chavePix).then(() => {
+                mostrarToast();
+            }).catch(err => {
+                let aux = document.createElement("input");
+                aux.setAttribute("value", chavePix);
+                document.body.appendChild(aux);
+                aux.select();
+                document.execCommand("copy");
+                document.body.removeChild(aux);
+                mostrarToast();
+            });
+        }
+
+        function mostrarToast() {
+            const toast = document.getElementById('toast-pix');
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        function responder(opcao) {
+            esconderTudo();
+            const corpo = document.getElementById('corpo-pagina');
+            const fundoAnimado = document.getElementById('container-animacao-fundo');
+
+            if(opcao === 'sim') {
+                corpo.classList.remove('fogo-bg');
+                corpo.classList.remove('sky-bg');
+                corpo.classList.add('luz-bg');
+                fundoAnimado.innerHTML = `
+                    <div class="light-effect text-3xl" style="left: 15%; animation-delay: 0s;"><i class="fa-solid fa-crown"></i></div>
+                    <div class="light-effect text-2xl" style="left: 50%; animation-delay: 4s;"><i class="fa-solid fa-crown"></i></div>
+                    <div class="light-effect text-4xl" style="left: 80%; animation-delay: 8s;"><i class="fa-solid fa-crown"></i></div>
+                `;
+                document.getElementById('card-sim').classList.remove('hidden');
+            } else {
+                corpo.classList.remove('sky-bg');
+                corpo.classList.remove('luz-bg');
+                corpo.classList.add('fogo-bg');
+                fundoAnimado.innerHTML = `
+                    <div class="fire-effect text-3xl" style="left: 15%; animation-delay: 0s;"><i class="fa-solid fa-fire"></i></div>
+                    <div class="fire-effect text-2xl" style="left: 50%; animation-delay: 2s;"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <div class="fire-effect text-4xl" style="left: 80%; animation-delay: 4s;"><i class="fa-solid fa-fire"></i></div>
+                `;
+                document.getElementById('card-nao').classList.remove('hidden');
+            }
+        }
+
+        function mostrarQuemEJesus() {
+            esconderTudo();
+            document.getElementById('card-quem-e-jesus').classList.remove('hidden');
+        }
+
+        function mostrarCaminhada() {
+            esconderTudo();
+            document.getElementById('card-caminhada').classList.remove('hidden');
+        }
+
+        function irParaOracao() {
+            esconderTudo();
+            document.getElementById('card-oracao').classList.remove('hidden');
+            carregarPedidos();
+        }
+
+        function abrirMenuEscudo() {
+            esconderTudo();
+            pararVideos();
+            document.getElementById('card-menu-escudo').classList.remove('hidden');
+        }
+
+        function abrirGuerraEspiritual() {
+            esconderTudo();
+            const iframeOutdoor = document.getElementById('iframe-outdoor');
+            iframeOutdoor.src = "https://www.youtube.com/embed/FeE_nTrGj4Q?start=202&autoplay=1&mute=0";
+            document.getElementById('card-guerra-espiritual').classList.remove('hidden');
+        }
+
+        function abrirVideoLibertacao(tipo) {
+            esconderTudo();
+            pararVideos();
+            const iframe = document.getElementById('iframe-youtube');
+            const titulo = document.getElementById('titulo-video');
+
+            if(tipo === 'vicios') {
+                titulo.innerText = "Libertação dos Vícios e Drogas (Dívida da Morte)";
+                iframe.src = "https://www.youtube.com/embed/k-HKulzbkCE?start=279&autoplay=1&mute=0";
+            } else if(tipo === 'depressao') {
+                titulo.innerText = "Cura da Depressão e Opressão";
+                iframe.src = "https://www.youtube.com/embed/s9DLcCnzDAo?start=517&autoplay=1&mute=0";
+            } else if(tipo === 'correntes') {
+                titulo.innerText = "Quebrando Maldições Hereditárias";
+                iframe.src = "https://www.youtube.com/embed/RawPEngRigA?start=103&autoplay=1&mute=0";
+            }
+
+            document.getElementById('card-player-video').classList.remove('hidden');
+        }
+
+        function pararVideos() {
+            document.getElementById('iframe-outdoor').src = "";
+            document.getElementById('iframe-youtube').src = "";
+        }
+
+        function abrirSubPagina(tipo) {
+            esconderTudo();
+            pararVideos();
+            const container = document.getElementById('conteudo-subpagina');
+            
+            if(tipo === 'lideranca') {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-36 h-24 mx-auto mb-2 rounded-xl overflow-hidden shadow-lg border-2 border-amber-400 bg-black/30 flex items-center justify-center p-1">
+                            <img src="logo5.png" alt="Pastor Flávio e Missionária Gisele" class="w-full h-full object-contain">
+                        </div>
+                        <h3 class="font-black text-gray-900 text-base mb-1">Pastor Presidente Flávio e Missionária Gisele</h3>
+                        <p class="text-[11px] text-amber-700 font-bold uppercase tracking-wider mb-3">Canal Resgatando Almas Para Jesus</p>
+                    </div>
+                    <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 space-y-2 text-xs text-gray-700 leading-relaxed">
+                        <p>Guiados pelo Espírito Santo, o <strong>Pastor Flávio</strong> e a <strong>Missionária Gisele</strong> estão à frente do ministério <strong>REAJ</strong>, dedicando suas vidas à proclamação do Evangelho genuíno, à guerra espiritual e ao resgate de almas perdidas nas trevas.</p>
+                        <p>Com um firme compromisso com a Palavra de Deus, o casal conduz cultos, libertações e trabalhos de assistência, mostrando que através do nome de Jesus há esperança e libertação para qualquer vida.</p>
+                    </div>
+                    <p class="italic text-gray-500 text-center text-[11px]">"Combati o bom combate, acabei a carreira, guardei a fé." (2 Timóteo 4:7)</p>
+                `;
+            } else if(tipo === 'endereco') {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-location-dot"></i></div>
+                        <h3 class="font-black text-gray-900 text-sm mb-1">Endereço e Horários da Igreja</h3>
+                    </div>
+                    <p class="text-center font-semibold text-gray-800">📍 Estrada Sebastião Bastos, 228</p>
+                    <div class="bg-red-50 p-3 rounded-xl border border-red-100 space-y-1.5 text-xs text-red-900">
+                        <p>🔥 <strong>Cultos:</strong> Quartas e Sábados a partir das 19:00</p>
+                        <p>📖 <strong>Ensino da Palavra:</strong> Domingos às 19:30</p>
+                    </div>
+                    <p class="italic text-gray-500 text-center">"Alegrei-me quando me disseram: Vamos à casa do Senhor!" (Salmos 122:1)</p>
+                `;
+            } else if(tipo === 'social') {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-handshake"></i></div>
+                        <h3 class="font-black text-gray-900 text-sm mb-1">Trabalhos Sociais</h3>
+                    </div>
+                    <p>A fé sem obras é morta. A REAJ atua ativamente levando o amor prático de Cristo para quem mais precisa:</p>
+                    <ul class="list-disc pl-4 space-y-1.5 font-medium text-emerald-900">
+                        <li>Distribuição de cestas básicas para famílias carentes;</li>
+                        <li>Campanha do agasalho e sopão solidário nas ruas;</li>
+                        <li>Apoio e orientação familiar fundamentada na Palavra.</li>
+                    </ul>
+                `;
+            } else if(tipo === 'presidio') {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-key"></i></div>
+                        <h3 class="font-black text-gray-900 text-sm mb-1">Visita em Presídios</h3>
+                    </div>
+                    <p>Lembrando-nos dos que estão presos, como se presos com eles estivéssemos (Hebreus 13:3):</p>
+                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-100 space-y-2">
+                        <p>Levamos a verdadeira liberdade que só Jesus pode dar — a libertação espiritual de dentro dos cárceres através da pregação do Evangelho, entrega de Bíblias e assistência aos detentos e suas famílias.</p>
+                    </div>
+                `;
+            } else if(tipo === 'libertacao') {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-fire"></i></div>
+                        <h3 class="font-black text-gray-900 text-sm mb-1">Curas e Libertação</h3>
+                    </div>
+                    <p>Pelo poder do nome de Jesus, correntes são quebradas e enfermos são curados:</p>
+                    <p>Através da oração fervorosa, jejum e renúncia ao pecado, vidas são restauradas dos vícios em drogas, pornografia, *bets* e depressão, experimentando a verdadeira paz que excede todo entendimento.</p>
+                `;
+            }
+
+            document.getElementById('card-subpagina').classList.remove('hidden');
+        }
+
+        function reiniciar() {
+            esconderTudo();
+            pararVideos();
+            
+            const corpo = document.getElementById('corpo-pagina');
+            corpo.classList.remove('fogo-bg');
+            corpo.classList.remove('luz-bg');
+            corpo.classList.add('sky-bg');
+            document.getElementById('container-animacao-fundo').innerHTML = `
+                <div class="cloud-bg text-4xl" style="top: 10%; animation-delay: 0s;"><i class="fa-solid fa-cloud"></i></div>
+                <div class="cloud-bg text-2xl" style="top: 25%; animation-delay: 5s;"><i class="fa-solid fa-cloud"></i></div>
+                <div class="cloud-bg text-5xl" style="top: 45%; animation-delay: 2s;"><i class="fa-solid fa-cloud"></i></div>
+                <div class="cloud-bg text-3xl" style="top: 60%; animation-delay: 9s;"><i class="fa-solid fa-cloud"></i></div>
+                <div class="cloud-bg text-4xl" style="top: 75%; animation-delay: 4s;"><i class="fa-solid fa-cloud"></i></div>
+                <div class="cloud-bg text-2xl" style="top: 90%; animation-delay: 12s;"><i class="fa-solid fa-cloud"></i></div>
+            `;
+            document.getElementById('card-pergunta').classList.remove('hidden');
+        }
+
+        function esconderTudo() {
+            document.getElementById('card-pergunta').classList.add('hidden');
+            document.getElementById('card-nao').classList.add('hidden');
+            document.getElementById('card-sim').classList.add('hidden');
+            document.getElementById('card-quem-e-jesus').classList.add('hidden');
+            document.getElementById('card-caminhada').classList.add('hidden');
+            document.getElementById('card-oracao').classList.add('hidden');
+            document.getElementById('card-menu-escudo').classList.add('hidden');
+            document.getElementById('card-guerra-espiritual').classList.add('hidden');
+            document.getElementById('card-player-video').classList.add('hidden');
+            document.getElementById('card-subpagina').classList.add('hidden');
+        }
+
+        function adicionarPedido() {
+            const nomeInput = document.getElementById('input-nome');
+            const pedidoInput = document.getElementById('input-pedido');
+            
+            const nome = nomeInput.value.trim();
+            const pedido = pedidoInput.value.trim();
+
+            if(!nome || !pedido) {
+                alert('Por favor, preencha o seu nome e o pedido de oração.');
+                return;
+            }
+
+            const novoPedido = {
+                id: Date.now(),
+                nome: nome,
+                pedido: pedido,
+                data: new Date().toLocaleDateString('pt-BR')
+            };
+
+            let pedidos = JSON.parse(localStorage.getItem('reaj_pedidos_oracao') || '[]');
+            pedidos.unshift(novoPedido);
+            localStorage.setItem('reaj_pedidos_oracao', JSON.stringify(pedidos));
+
+            nomeInput.value = '';
+            pedidoInput.value = '';
+
+            carregarPedidos();
+        }
+
+        function carregarPedidos() {
+            const listaContainer = document.getElementById('lista-pedidos');
+            const pedidos = JSON.parse(localStorage.getItem('reaj_pedidos_oracao') || '[]');
+
+            if(pedidos.length === 0) {
+                listaContainer.innerHTML = '<p class="text-center text-xs text-gray-500 italic py-3 bg-white/50 rounded-xl">Ainda não há pedidos. Seja o primeiro a postar!</p>';
+                return;
+            }
+
+            listaContainer.innerHTML = '';
+            pedidos.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-3 rounded-xl border border-amber-100 shadow-sm text-left relative';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="font-bold text-amber-900 text-xs"><i class="fa-solid fa-user-circle text-amber-600 mr-1"></i>${escapeHtml(item.nome)}</span>
+                        <span class="text-[10px] text-gray-400">${item.data}</span>
+                    </div>
+                    <p class="text-gray-700 text-xs leading-relaxed mb-2">${escapeHtml(item.pedido)}</p>
+                    <div class="flex justify-end">
+                        <button onclick="removerPedido(${item.id})" class="text-[10px] text-rose-600 hover:text-rose-800 font-semibold flex items-center gap-1 bg-rose-50 px-2 py-0.5 rounded">
+                            <i class="fa-solid fa-check"></i> Oração Atendida / Apagar
+                        </button>
+                    </div>
+                `;
+                listaContainer.appendChild(card);
+            });
+        }
+
+        function removerPedido(id) {
+            let pedidos = JSON.parse(localStorage.getItem('reaj_pedidos_oracao') || '[]');
+            pedidos = pedidos.filter(item => item.id !== id);
+            localStorage.setItem('reaj_pedidos_oracao', JSON.stringify(pedidos));
+            carregarPedidos();
+        }
+
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+</body>
+</html>
